@@ -1,0 +1,214 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+@font-face {
+  font-family: "Montserat";
+  src: url("Montserrat-Bold.ttf");
+}
+body {
+  background-color: #4cc3b5;
+}
+.about {
+width: 800px;
+}
+
+h1 {
+  font-family: "Montserat", sans-serif;
+  color: white;
+  font-size: 50px;
+  padding: 50px;
+}
+h3 {
+  font-family: sans-serif;
+  color: white;
+  font-size: 22px;
+  padding: 50px;
+  line-height: 1.5;
+  width: 600px;
+}
+
+p {
+  font-family: "Montserat", sans-serif;
+}
+
+#name_main {
+width: 100%;
+height: 100%;
+}
+
+input[type="text"],
+select {
+  font-family: "Montserat", sans-serif;
+  margin: 0;
+  width: 80%;
+  height: 100px;
+  padding-left: 50px;
+  display: inline-block;
+  box-sizing: border-box;
+  font-size: 30px;
+  background-color: #d074b7;
+  color: white;
+  border: none;
+
+}
+::placeholder {
+  color: white;
+  opacity: 0.5;
+}
+input:hover {
+opacity: 0.9
+}
+
+button[type="submit"] {
+  position: absolute;
+  font-family: "Montserat", sans-serif;
+  font-size: 40px;
+  width: 20%;
+  height: 100px;
+  background-color: #8e4d7e;
+  color: white;
+  padding: 14px 20px;
+  margin: 0 auto;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 10000;
+}
+
+button:hover{
+opacity: 0.9;
+}
+
+.inputs {
+  background-color: #f2f2f2;
+  width: 100%;
+  margin: auto;
+}
+
+#input_name {
+margin-top: 0px;
+box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+border-top: 20px solid white;
+position: fixed;
+ bottom: 0;
+
+}
+
+#input_numbers {
+box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  border-top: 20px solid white;
+  display: none;
+   position: fixed;
+  bottom: 0;
+}
+
+main {
+  position: fixed;
+  width: 100%;
+  height: 100vh;
+  margin: 0 auto;
+  background-color: #ededed;
+  display: none;
+}
+
+
+
+.flex {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+
+.fuel_gamer_one {
+  background-color: #4cc3b5;
+  height: 100%;
+  min-width: 50%;
+  padding-left: 30px;
+  padding-top: 30px;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+
+
+}
+.fuel_gamer_two {
+  background-color: #1b2c54;
+  left: 50%;
+  height: 100%;
+  width: 50%;
+  padding-right: 30px;
+  padding-top: 30px;
+  text-align: right;
+  z-index: -1000;
+
+}
+
+.players_names {
+  color: white;
+  font-size: 25px;
+}
+
+.points {
+  position: absolute;
+  margin-top: 50px;
+  width: 15%;
+  background-color: #00000066;
+  text-align: center;
+  bottom: 150px;
+  color: white;
+  font-size: 20px;
+  padding-top: 30px;
+  font-family: "Montserat", sans-serif;
+}
+
+
+#one_points {
+  height: 65vh;
+ box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+
+#two_points {
+  right: 30px;
+  height: 65vh;
+box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+.entered_numbers {
+  font-family: "Montserat", sans-serif;
+  color: white;
+  position: absolute;
+  width: 50%;
+  height: 400px;
+  font-size: 15vw;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#vs {
+  font-family: "Montserat", sans-serif;
+  color: white;
+  font-size: 30px;
+  position: absolute;
+  z-index: 100000;
+  text-align: center;
+  top: 40%;
+  left: 50%;
+  transform: translate(20%, -50%);
+}
+
+.wins_one {
+  width: 45%;
+  font-family: "Montserat", sans-serif;
+  color: white;
+  position: absolute;
+  font-size: 40px;
+  text-align: right;
+}
+.wins_two {
+  width: 45%;
+  font-family: "Montserat", sans-serif;
+  color: white;
+  position: absolute;
+  font-size: 40px;
+  text-align: left;
+  margin-left: 5%;
+}

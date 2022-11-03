@@ -1,0 +1,169 @@
+<html lang="en">
+
+<head>
+    <title>Data Analytics Ireland</title></head>
+    <link rel="stylesheet" href="static/style.css">
+<body>
+
+<div id="name_main">
+    <h1>Hi there!</h1>
+    <h3>You have 100 Points to use. Each round you enter a number and the player with the higher number wins. When you reached 5 stars, before getting to 0 points, you win. If a player reaches 0 points the game is over!.</h3>
+    <div class="inputs" id="input_name">
+      <input
+        type="text"
+        id="fname"
+        name="fname"
+        placeholder="Let's start with your name"
+      />
+      <button onclick="passNames();" id="myBtn">GO!</button>
+    </div>
+</div>
+
+    <main class="game" id="main">
+        <div id="vs">VS</div>
+      <div class="flex">
+        <div class="fuel_gamer_one">
+          <div class="wins_one">0 / 10</div>
+          <p class="players_names" id="p1"></p>
+          <div class="entered_numbers" id="p1_entered"></div>
+          <div class="points" id="one_points"><p>100</p></div>
+        </div>
+
+        <div class="fuel_gamer_two">
+          <div class="wins_two">0 / 10</div>
+          <p class="players_names" id="p2">waiting for player</p>
+          <div class="entered_numbers" id="p2_entered"></div>
+          <div class="points" id="two_points"><p>100</p></div>
+        </div>
+      </div>
+    </main>
+
+    <div class="inputs" id="input_numbers">
+
+
+      <input
+        type="text"
+        id="numbers"
+        name="numbers"
+        placeholder="Enter your Number"
+      />
+      <button onclick="passNumbers()" id="myBtn_2">Send</button>
+
+    </div>
+
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script type="application/javascript">
+
+let game_state = null
+let myName = null
+
+function updateGameArea() {
+    if (game_state["player_one"] && game_state["player_one"].name == myName)
+    {
+        console.log("We are Player One")
+    }
+
+    if (game_state["player_two"] && (game_state["player_two"].name == myName))
+    {
+        console.log("We are Player Two")
+    }
+
+    if (game_state["player_one"]) {
+        document.getElementById("p1").innerText = game_state["player_one"].name;
+    }
+
+    if (game_state["player_two"]) {
+        document.getElementById("p2").innerText = game_state["player_two"].name;
+    }
+
+}
+
+function myFunction(output){
+    $.ajax({
+        url:"/GameStatus",
+        type:"GET",
+        contentType: "application/json",
+        data: JSON.stringify()}).done(function( res )
+        {
+            game_state = res
+            updateGameArea()
+        });
+    setTimeout(myFunction, 1000);
+}
+myFunction();
+
+function passNames() {
+    myName = document.getElementById("fname").value;
+    const dict_values = myName
+    const s = JSON.stringify(dict_values);
+    console.log(s);
+    $.ajax({
+        url:"/test",
+        type:"POST",
+        contentType: "application/json",
+        data: JSON.stringify(s)}).done(function( res ) {
+        document.getElementById("name_main").style.display = "none";
+        document.getElementById("input_numbers").style.display = "block";
+        document.getElementById("main").style.display = "block";
+
+        // TODO if player_one exist change p2 if not change name to p1
+        // How to check which player enterd?
+
+        game_state = res;
+
+        updateGameArea();
+  });
+}
+
+// var inputing_name = document.getElementById("input_name");
+// inputing_name.addEventListener("keypress", function(event) {
+//   if (event.key === "Enter") {
+//     event.preventDefault();
+//
+//     console.log("Key press one");
+//
+//     document.getElementById("myBtn").click();
+//   }
+// });
+//
+// var inputing_number = document.getElementById("input_name");
+// inputing_number.addEventListener("keypress", function(event) {
+//   if (event.key === "Enter") {
+//     event.preventDefault();
+//
+//     console.log("Key press two");
+//
+//     document.getElementById("myBtn_2").click();
+//   }
+// });
+
+function passNumbers(event) {
+    console.log("passNumbers is called")
+    const firstplayer_pass = document.getElementById("fname").value;
+    const form = document.getElementById('my_form');
+    const numbers = document.getElementById("numbers").value;
+    const dict_numbers = numbers
+    const d = JSON.stringify(dict_numbers);
+
+    const data = {name: firstplayer_pass, number: dict_numbers}
+
+    $.ajax({
+        url:"/numbers",
+        type:"POST",
+        contentType: "application/json",
+        data: JSON.stringify(data)}).done(function( res ) {
+
+        if (res < 100) {
+        document.getElementById("p1_entered").innerHTML = res
+        document.getElementById("p2_entered").innerHTML = "?"
+        document.getElementById("numbers").placeholder = "Enter your Number";
+        let score = document.getElementById("one_points");
+        score.style.height = 65 - (res / 1.8) + "vh"; // make it smaller
+        score.innerHTML = 100 - res
+        }
+  });
+}
+
+</script>
+</body>
+</html>
