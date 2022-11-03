@@ -13,12 +13,22 @@ body {
 width: 800px;
 }
 
+#won {
+display: none;
+}
 h1 {
   font-family: "Montserat", sans-serif;
   color: white;
   font-size: 50px;
   padding: 50px;
 }
+.game h1 {
+  font-family: "Montserat", sans-serif;
+  color: black;
+  font-size: 50px;
+  padding: 50px;
+}
+
 h3 {
   font-family: sans-serif;
   color: white;
@@ -46,21 +56,23 @@ select {
   padding-left: 50px;
   display: inline-block;
   box-sizing: border-box;
-  font-size: 30px;
+  font-size: 45px;
   background-color: #d074b7;
   color: white;
   border: none;
-
+}
+#numbers {
+background-color: #4cc3b5;
 }
 ::placeholder {
   color: white;
-  opacity: 0.5;
+  opacity: 0.3;
 }
 input:hover {
 opacity: 0.9
 }
 
-button[type="submit"] {
+button {
   position: absolute;
   font-family: "Montserat", sans-serif;
   font-size: 40px;
@@ -139,7 +151,6 @@ main {
   padding-top: 30px;
   text-align: right;
   z-index: -1000;
-
 }
 
 .players_names {
@@ -211,4 +222,11 @@ box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
   font-size: 40px;
   text-align: left;
   margin-left: 5%;
+}
+
+#restarted {
+width: 200px;
+height: 50px;
+margin-left: 50px;
+font-size: 20px;
 }

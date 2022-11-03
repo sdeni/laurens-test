@@ -1,1 +1,1 @@
-{"player_one": {"name": "AAAAAAAAAAAA!!!", "points": 100, "wins": 0}, "player_two": {"name": "EEEEEEEEEEEEEEEE!!!!!!!", "points": 100, "wins": 0}}
+{"player_one": {"name": "assa", "points": 63, "wins": 4, "current_input": "3", "EnteredNumber": true, "GameIsOn": true, "HasWon": false}, "player_two": {"name": "laurens", "points": 82, "wins": 1, "current_input": "6", "EnteredNumber": true, "GameIsOn": true, "HasWon": false}}

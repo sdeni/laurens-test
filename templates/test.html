@@ -8,6 +8,7 @@
 <div id="name_main">
     <h1>Hi there!</h1>
     <h3>You have 100 Points to use. Each round you enter a number and the player with the higher number wins. When you reached 5 stars, before getting to 0 points, you win. If a player reaches 0 points the game is over!.</h3>
+    <button onclick="restartPage()" id="restarted">Continue</button>
     <div class="inputs" id="input_name">
       <input
         type="text"
@@ -15,23 +16,24 @@
         name="fname"
         placeholder="Let's start with your name"
       />
-      <button onclick="passNames();" id="myBtn">GO!</button>
+      <button onclick="passNames();" id="myBtn">GO!</butto>
     </div>
 </div>
 
     <main class="game" id="main">
+        <h1 id="won">Yeah you won</h1>
         <div id="vs">VS</div>
       <div class="flex">
-        <div class="fuel_gamer_one">
-          <div class="wins_one">0 / 10</div>
+        <div class="fuel_gamer_one" id="p1_border">
+          <div class="wins_one" id="w1"><p>0 / 10</p></div>
           <p class="players_names" id="p1"></p>
           <div class="entered_numbers" id="p1_entered"></div>
           <div class="points" id="one_points"><p>100</p></div>
         </div>
 
-        <div class="fuel_gamer_two">
-          <div class="wins_two">0 / 10</div>
-          <p class="players_names" id="p2">waiting for player</p>
+        <div class="fuel_gamer_two" id="p2_border">
+          <div class="wins_two" id="w2">0 / 10</div>
+          <p class="players_names" id="p2">...</p>
           <div class="entered_numbers" id="p2_entered"></div>
           <div class="points" id="two_points"><p>100</p></div>
         </div>
@@ -39,7 +41,6 @@
     </main>
 
     <div class="inputs" id="input_numbers">
-
 
       <input
         type="text"
@@ -56,26 +57,135 @@
 
 let game_state = null
 let myName = null
+let who_is_player = null
+
 
 function updateGameArea() {
-    if (game_state["player_one"] && game_state["player_one"].name == myName)
-    {
-        console.log("We are Player One")
-    }
+        if (value_status["player_one"]) {
+            player_one = value_status["player_one"]["name"]
+            document.getElementById("p1").innerHTML = player_one
+        }else {
+        document.getElementById("p2").innerHTML = "...";
+        }
 
-    if (game_state["player_two"] && (game_state["player_two"].name == myName))
-    {
-        console.log("We are Player Two")
-    }
+        if (value_status["player_two"]) {
+            player_two = value_status["player_two"]["name"]
+            document.getElementById("p2").innerHTML = player_two
+        } else {
+        document.getElementById("p2").innerHTML = "...";
+        }
+}
 
-    if (game_state["player_one"]) {
-        document.getElementById("p1").innerText = game_state["player_one"].name;
-    }
+function settingColors() {
+if (value_status["player_one"]["current_input"] > value_status["player_two"]["current_input"]){
+            document.getElementById("p1_entered").style.color = "#abf281"
+            document.getElementById("p2_entered").style.color = "#c4736a"
+            document.getElementById("p1_border").style.border = "thick solid #abf281";
 
-    if (game_state["player_two"]) {
-        document.getElementById("p2").innerText = game_state["player_two"].name;
-    }
 
+            }else if (value_status["player_one"]["current_input"] < value_status["player_two"]["current_input"]) {
+            document.getElementById("p2_entered").style.color = "#abf281"
+            document.getElementById("p1_entered").style.color = "#c4736a"
+            document.getElementById("p1_border").style.border = "thick solid #c4736a";
+
+            } else {
+            document.getElementById("p2_entered").style.color = "white"
+            document.getElementById("p1_entered").style.color = "white"
+            }
+}
+
+
+function updateNumbers() {
+    // Setting the points
+    // if two players are in the game
+    if (value_status["player_one"] && value_status["player_two"]) {
+        document.getElementById("p2_entered").style.color = "white"
+        document.getElementById("p1_entered").style.color = "white"
+        if (value_status["player_one"].GameIsOn == true && value_status["player_two"].GameIsOn == true ) {
+        if (value_status["player_one"].HasWon == true) {
+            document.getElementById("won").innerHTML = "Player One has won"
+            document.getElementById("won").style.display = "block"
+        } else if (value_status["player_two"].HasWon == true) {
+            document.getElementById("won").innerHTML = "Player Two has won"
+            document.getElementById("won").style.display = "block"
+
+        }
+
+
+        if (value_status["player_two"].EnteredNumber == true && value_status["player_one"].EnteredNumber == true ) {
+
+            // Setting Input
+            input_player_one = value_status["player_one"]["current_input"]
+            input_player_two = value_status["player_two"]["current_input"]
+            document.getElementById("p1_entered").innerHTML = input_player_one
+            document.getElementById("p2_entered").innerHTML = input_player_two
+
+            // setting color green red for wins
+            settingColors()
+
+            // Setting Current Score
+            score_player_one = value_status["player_one"]["points"]
+            document.getElementById("one_points").innerHTML = score_player_one
+            document.getElementById("one_points").style.height = 5 + (score_player_one / 2) + "vh";
+            score_player_two = value_status["player_two"]["points"]
+            document.getElementById("two_points").innerHTML = score_player_two
+            document.getElementById("two_points").style.height = 5 + (score_player_two / 2) + "vh";
+
+            // Setting Wins
+            wined = value_status["player_one"]["wins"]
+            document.getElementById("w1").innerHTML = wined + " / 5"
+            wined_2 = value_status["player_two"]["wins"]
+            document.getElementById("w2").innerHTML = wined_2 + " / 5"
+        }else {
+        if (value_status["player_one"] && (value_status["player_one"].name == myName)) {
+
+                     // score
+                     score_player_one = value_status["player_one"]["points"]
+                     document.getElementById("one_points").innerHTML = score_player_one
+                     document.getElementById("one_points").style.height = 5 + (score_player_one / 2) + "vh";
+
+                     // current points
+                     input_player_one = value_status["player_one"]["current_input"]
+                     document.getElementById("p1_entered").innerHTML = input_player_one
+                     document.getElementById("p2_entered").innerHTML = "?"
+            } else if (value_status["player_two"] && (value_status["player_two"].name == myName)){
+
+                // score
+                score_player_two = value_status["player_two"]["points"]
+                document.getElementById("two_points").innerHTML = score_player_two
+                document.getElementById("two_points").style.height = 5 + (score_player_two / 2) + "vh";
+
+                // current points
+                input_player_two = value_status["player_two"]["current_input"]
+                document.getElementById("p2_entered").innerHTML = input_player_two
+                document.getElementById("p1_entered").innerHTML = "?"
+           } else {
+           console.log("error")
+           }
+        }
+    }else {
+        if (value_status["player_two"].GameIsOn == false ) {
+        document.getElementById("p2_entered").innerHTML = ":("
+
+        } else if (value_status["player_one"].GameIsOn == false ) {
+        document.getElementById("p1_entered").innerHTML = ":("
+        }
+    }
+    }
+}
+
+function GetWhichPlayerWeAre() {
+    if (value_status["player_one"] && (value_status["player_one"].name == myName))
+        {
+            document.getElementById("numbers").style.backgroundColor = "#4cc3b5";
+            document.getElementById("myBtn_2").style.backgroundColor = "#3a9184";
+        }
+
+    if (value_status["player_two"] && (value_status["player_two"].name == myName))
+        {
+           document.getElementById("numbers").style.backgroundColor = "#1b2c54";
+           document.getElementById("myBtn_2").style.backgroundColor = "#122038";
+        }
 }
 
 function myFunction(output){
@@ -85,12 +195,24 @@ function myFunction(output){
         contentType: "application/json",
         data: JSON.stringify()}).done(function( res )
         {
-            game_state = res
+
+            game_state = res;
+            value_status = res;
             updateGameArea()
+            GetWhichPlayerWeAre()
+            updateNumbers()
         });
     setTimeout(myFunction, 1000);
 }
-myFunction();
+
+// TODO how to store which player we are actually (aka myName)
+
+function restartPage(){
+        document.getElementById("name_main").style.display = "none";
+        document.getElementById("input_numbers").style.display = "block";
+        document.getElementById("main").style.display = "block";
+        myFunction();
+}
 
 function passNames() {
     myName = document.getElementById("fname").value;
@@ -102,15 +224,14 @@ function passNames() {
         type:"POST",
         contentType: "application/json",
         data: JSON.stringify(s)}).done(function( res ) {
+
         document.getElementById("name_main").style.display = "none";
         document.getElementById("input_numbers").style.display = "block";
         document.getElementById("main").style.display = "block";
 
-        // TODO if player_one exist change p2 if not change name to p1
-        // How to check which player enterd?
 
-        game_state = res;
-
+        value_status = res;
+        myFunction();
         updateGameArea();
   });
 }
@@ -153,14 +274,8 @@ function passNumbers(event) {
         contentType: "application/json",
         data: JSON.stringify(data)}).done(function( res ) {
 
-        if (res < 100) {
-        document.getElementById("p1_entered").innerHTML = res
-        document.getElementById("p2_entered").innerHTML = "?"
-        document.getElementById("numbers").placeholder = "Enter your Number";
-        let score = document.getElementById("one_points");
-        score.style.height = 65 - (res / 1.8) + "vh"; // make it smaller
-        score.innerHTML = 100 - res
-        }
+            updateNumbers(res)
+
   });
 }
 
