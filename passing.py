@@ -2,7 +2,7 @@ import json
 from flask import Flask, render_template, request
 import os
 
-min_score_to_win = 1
+min_score_to_win = 5
 points_player_one = 100
 points_player_two = 100
 
