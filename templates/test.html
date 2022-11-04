@@ -49,7 +49,6 @@
         placeholder="Enter your Number"
       />
       <button onclick="passNumbers()" id="myBtn_2">Send</button>
-
     </div>
 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
@@ -79,12 +78,10 @@ function updateGameArea() {
 function settingColors() {
 if (value_status["player_one"]["current_input"] > value_status["player_two"]["current_input"]){
             document.getElementById("p1_entered").style.color = "#abf281"
-            document.getElementById("p2_entered").style.color = "#c4736a"
             document.getElementById("p1_border").style.border = "thick solid #abf281";
             document.getElementById("p2_border").style.border = "thick solid #abf28100"; // none
 
             }else if (value_status["player_one"]["current_input"] < value_status["player_two"]["current_input"]) {
-            document.getElementById("p1_entered").style.color = "#c4736a"
             document.getElementById("p2_entered").style.color = "#abf281"
             document.getElementById("p2_border").style.border = "thick solid #abf281";
             document.getElementById("p1_border").style.border = "thick solid #abf28100"; // none
