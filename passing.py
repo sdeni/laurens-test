@@ -2,7 +2,7 @@ import json
 from flask import Flask, render_template, request
 import os
 
-min_score_to_win = 5
+min_score_to_win = 1
 points_player_one = 100
 points_player_two = 100
 
@@ -146,6 +146,7 @@ def checkWinner(game_state):
     if game_state["player_one"]["EnteredNumber"] == True and game_state["player_two"]["EnteredNumber"] == True:
         current_input_p1 = game_state["player_one"]["current_input"]
         current_input_p2 = game_state["player_two"]["current_input"]
+
         if int(current_input_p1) > int(current_input_p2):
             print("wins p1 +1")
             game_state["player_one"]["wins"] += 1
@@ -154,12 +155,34 @@ def checkWinner(game_state):
             print("wins p2 +1")
             game_state["player_two"]["wins"] += 1
 
-        if game_state["player_one"]["wins"] == 5:
+        if game_state["player_one"]["wins"] == min_score_to_win:
             print("one has won")
             game_state["player_one"]["HasWon"] = True;
 
-        if game_state["player_two"]["wins"] == 5:
+        if game_state["player_two"]["wins"] == min_score_to_win:
             print("two has won")
             game_state["player_two"]["HasWon"] = True;
+
+        # check if reached 4 wins that automatically the player wins if he has enough points, otherwiese other player could spent all his points to make it that nobody won
+
+        if game_state["player_one"]["wins"] == min_score_to_win - 1:
+            if game_state["player_one"]["points"] > game_state["player_two"]["points"]:
+                print("p1 player one has enough points")
+                game_state["player_one"]["wins"] += 1
+                game_state["player_one"]["HasWon"] = True;
+                return
+            else:
+                print("no enough points to win yet")
+
+        if game_state["player_two"]["wins"] == min_score_to_win - 1:
+            if game_state["player_two"]["points"] > game_state["player_one"]["points"]:
+                print("p2 player one has enough points")
+                game_state["player_two"]["wins"] += 1
+                game_state["player_two"]["HasWon"] = True;
+                return
+            else:
+                print("no enough points to win yet")
+
+
 
     saveGameState(game_state)

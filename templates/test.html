@@ -23,7 +23,7 @@
     <main class="game" id="main">
         <h1 id="won">Yeah you won</h1>
         <div id="vs">VS</div>
-      <div class="flex">
+      <div class="flex" id="game_viewer">
         <div class="fuel_gamer_one" id="p1_border">
           <div class="wins_one" id="w1"><p>0 / 10</p></div>
           <p class="players_names" id="p1"></p>
@@ -81,12 +81,13 @@ if (value_status["player_one"]["current_input"] > value_status["player_two"]["cu
             document.getElementById("p1_entered").style.color = "#abf281"
             document.getElementById("p2_entered").style.color = "#c4736a"
             document.getElementById("p1_border").style.border = "thick solid #abf281";
-
+            document.getElementById("p2_border").style.border = "thick solid #abf28100"; // none
 
             }else if (value_status["player_one"]["current_input"] < value_status["player_two"]["current_input"]) {
-            document.getElementById("p2_entered").style.color = "#abf281"
             document.getElementById("p1_entered").style.color = "#c4736a"
-            document.getElementById("p1_border").style.border = "thick solid #c4736a";
+            document.getElementById("p2_entered").style.color = "#abf281"
+            document.getElementById("p2_border").style.border = "thick solid #abf281";
+            document.getElementById("p1_border").style.border = "thick solid #abf28100"; // none
 
             } else {
             document.getElementById("p2_entered").style.color = "white"
@@ -105,10 +106,14 @@ function updateNumbers() {
         if (value_status["player_one"].HasWon == true) {
             document.getElementById("won").innerHTML = "Player One has won"
             document.getElementById("won").style.display = "block"
+            document.getElementById("input_numbers").style.display = "none";
+           // document.getElementById("game_viewer").style.display = "none";
+
         } else if (value_status["player_two"].HasWon == true) {
             document.getElementById("won").innerHTML = "Player Two has won"
             document.getElementById("won").style.display = "block"
-
+            document.getElementById("input_numbers").style.display = "none";
+          //  document.getElementById("game_viewer").style.display = "none";
         }
 
 
